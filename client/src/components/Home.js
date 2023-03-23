@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Loading from "./Loading";
+import axios from "axios";
 
 const Home = () => {
     const [fullName, setFullName] = useState("");
@@ -28,13 +29,23 @@ const Home = () => {
     };
     const handleFromSubmit = (e) => {
         e.preventDefault();
-        console.log({
-            fullName,
-            currentPosition,
-            currentLength,
-            currentTechnologies,
-            headshot,
-        });
+
+        const formData = new FormData();
+        formData.append("headshotImage", headshot, headshot.name);
+        formData.append("fullName", fullName);
+        formData.append("currentPosition", currentPosition);
+        formData.append("currentLength", currentLength);
+        formData.append("currentTechnologies", currentTechnologies);
+        formData.append("workHistory", JSON.stringify(companyInfo));
+        axios
+            .post("http://localhost:3100/resume/create", formDate,{})
+            .then((res) => {
+                if(res.data.message) {
+                    console.log(res.data.data);
+                    NavigationPreloadManager("/resume");
+                }
+            })
+            .catch((err) => console.error(err));
         setLoading(true);
     }
     if(loading) {
@@ -44,7 +55,7 @@ const Home = () => {
         <div className="app">
             <h1>Resume Builder</h1>
             <p>Generate a resume with ChatGPt in few seconds</p>
-            <form on onSubmit={handleFromSubmit} method='POST' encType="multipart/form-data">
+            <form onSubmit={handleFromSubmit} method='POST' encType="multipart/form-data">
                 <label htmlFor="fullName">Enter your full name</label>
                 <input
                     type='text'
