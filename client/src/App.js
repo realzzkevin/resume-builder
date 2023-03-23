@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
-import Home from "./components";
-import Resume from "./components";
-
+import Home from "./components/Home";
+import Resume from "./components/Resume";
 function App() {
   return (
     <div>
