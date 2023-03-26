@@ -38,11 +38,12 @@ const Home = ({ setResult }) => {
     formData.append("currentLength", currentLength);
     formData.append("currentTechnologies", currentTechnologies);
     formData.append("workHistory", JSON.stringify(companyInfo));
+    // console.log(formData);
     axios
       .post("http://localhost:3100/resume/create", formData, {})
       .then((res) => {
         if (res.data.message) {
-          console.log(res.data.data);
+          // console.log(res.data.data);
           setResult(res.data.date);
           Navigate("/resume");
         }
@@ -126,7 +127,7 @@ const Home = ({ setResult }) => {
                 type="text"
                 name="name"
                 required
-                onchange={(e) => handleUpdateCompany(e, index)}
+                onChange={(e) => handleUpdateCompany(e, index)}
               />
             </div>
             <div className="companies">
