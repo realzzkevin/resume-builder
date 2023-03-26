@@ -32,7 +32,6 @@ const upload = multer({
 
 const configuration = new Configuration({
    apikey: process.env.APIKEY,
-    //apiKey: "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",
 });
 
 const openai = new OpenAIApi(configuration);
