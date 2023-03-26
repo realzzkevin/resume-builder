@@ -4,7 +4,7 @@ const app = express();
 const PORT = 3100;
 const multer = require("multer");
 const path = require("path");
-const { configuration, OpenAIApi } = require("openai");
+const { Configuration, OpenAIApi } = require("openai");
 
 
 app.use(express.urlencoded({extended: true}));
@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname));
     },
 });
-const congiguration = new Configuration({
+const configuration = new Configuration({
     apikey: process.env.APIKEY,
 })
 
@@ -50,6 +50,8 @@ app.get("/", (req, res) => {
         {message: "Hello World",}
     );
 });
+
+let database = [];
 
 app.post("/resume/create", upload.single("headshotImage"), async(req, res) => {
     const{
@@ -84,8 +86,25 @@ app.post("/resume/create", upload.single("headshotImage"), async(req, res) => {
                     name: ${fullName} \n
                     role: ${currentPosition} (${currentLength} years). \n
                     I write in the technoloegies: ${currentTechnologies}. can you write a 100 words description for the top of the resume(first person Writing)?`;
-    const prompt2 = 
-    console.log(req.body);
+    const prompt2 = `I am writing a resume, My details are \n 
+                    name: ${fullName} \n
+                    role: ${currentPosition} (${currentLength} years). \n
+                    I write in the technoloegies: ${currentTechnologies}. can you write 10 points for a resume on what I am good at?`;
+
+    const prompt3 = `I am writing a resume, My details are \n 
+                    name: ${fullName} \n
+                    role: ${currentPosition} (${currentLength} years). \n
+                    During my years I worked at ${workArray.length} companies. ${remainderText()} \n
+                    Can you write me 50 words for each company seprated in numbers of my succession in the company (in first person)?`;
+
+    const objective = await GPTFunction(prompt1);
+    const keypoints = await GPTFunction(prompt2);
+    const jobResponsibilities = await GPTFunction(prompt3);
+    const ChatGPtData = {objective, keypoints, jobResponsibilities};
+    console.log(ChatGPtData);
+
+    const data = { ...newEntry, ...ChatGPtData};
+    database.push(data);
     res.json({
         message: "Request successful!",
         data:{},
