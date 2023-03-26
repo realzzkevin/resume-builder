@@ -50,6 +50,7 @@ const Home = ({ setResult }) => {
       .catch((err) => console.error(err));
     setLoading(true);
   };
+
   if (loading) {
     return <Loading />;
   }
@@ -73,12 +74,12 @@ const Home = ({ setResult }) => {
         />
         <div className="nestedContainer">
           <div>
-            <label htmlFor="currentPosition">Current Position</label>
+            <label htmlFor="currentPosition"> Current Position</label>
             <input
               type="text"
               required
               name="currentPosition"
-              className="currrentInput"
+              className="currentInput"
               value={currentPosition}
               onchange={(e) => setCurrentPosition(e.target.value)}
             />
@@ -95,12 +96,12 @@ const Home = ({ setResult }) => {
             />
           </div>
           <div>
-            <label htmlFor="currentTechnology">Technologies used</label>
+            <label htmlFor="currentTechnologies">Technologies used</label>
             <input
               type="text"
               required
               name="currentTechnologies"
-              className="'curretIput"
+              className="currentInput"
               value={currentTechnologies}
               onchange={(e) => setCurrentTechnologies(e.target.value)}
             />
@@ -117,45 +118,43 @@ const Home = ({ setResult }) => {
         />
 
         <h3>Companies you've worked at</h3>
-        <form>
-          {companyInfo.map((company, index) => (
-            <div className="nestedContainer" key={index}>
-              <div className="companies">
-                <label htmlFor="name">Company Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  onchange={(e) => handleUpdateCompany(e, index)}
-                />
-              </div>
-              <div className="companies">
-                <label htmlFor="position">Position Held</label>
-                <input
-                  type="text"
-                  name="position"
-                  required
-                  onChange={(e) => handleAddCompany(e, index)}
-                />
-              </div>
-              <div className="btn_group">
-                {companyInfo.length - 1 === index && companyInfo.length < 4 && (
-                  <button id="addBtn" onClick={handleAddCompany}>
-                    Add
-                  </button>
-                )}
-                {companyInfo.length > 1 && (
-                  <button
-                    id="deleteBtn"
-                    onClick={() => handleRemoveCompany(index)}
-                  >
-                    Del
-                  </button>
-                )}
-              </div>
+        {companyInfo.map((company, index) => (
+          <div className="nestedContainer" key={index}>
+            <div className="companies">
+              <label htmlFor="name">Company Name</label>
+              <input
+                type="text"
+                name="name"
+                required
+                onchange={(e) => handleUpdateCompany(e, index)}
+              />
             </div>
-          ))}
-        </form>
+            <div className="companies">
+              <label htmlFor="position">Position Held</label>
+              <input
+                type="text"
+                name="position"
+                required
+                onChange={(e) => handleUpdateCompany(e, index)}
+              />
+            </div>
+            <div className="btn__group">
+              {companyInfo.length - 1 === index && companyInfo.length < 4 && (
+                <button id="addBtn" onClick={handleAddCompany}>
+                  Add
+                </button>
+              )}
+              {companyInfo.length > 1 && (
+                <button
+                  id="deleteBtn"
+                  onClick={() => handleRemoveCompany(index)}
+                >
+                  Del
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
         <button>Create Resume</button>
       </form>
     </div>
