@@ -81,7 +81,7 @@ const Home = ({ setResult }) => {
               name="currentPosition"
               className="currentInput"
               value={currentPosition}
-              onchange={(e) => setCurrentPosition(e.target.value)}
+              onChange={(e) => setCurrentPosition(e.target.value)}
             />
           </div>
           <div>
@@ -103,11 +103,11 @@ const Home = ({ setResult }) => {
               name="currentTechnologies"
               className="currentInput"
               value={currentTechnologies}
-              onchange={(e) => setCurrentTechnologies(e.target.value)}
+              onChange={(e) => setCurrentTechnologies(e.target.value)}
             />
           </div>
         </div>
-        <lable htmlFor="photo">Upload your headshot image</lable>
+        <label htmlFor="photo">Upload your headshot image</label>
         <input
           type="file"
           name="photo"
