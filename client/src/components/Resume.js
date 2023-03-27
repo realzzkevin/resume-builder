@@ -20,7 +20,6 @@ const Resume = ({ result }) => {
   }
   return (
     <>
-    {console.log(result)}
       <button onClick={handlePrint}>Print Page</button>
       <main className="container" ref={componentRef}>
         <header className="header">

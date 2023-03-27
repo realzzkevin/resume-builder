@@ -108,7 +108,6 @@ app.post("/resume/create", upload.single("headshotImage"), async (req, res) => {
 
   const data = { ...newEntry, ...ChatGPtData };
   database.push(data);
-  console.log(data);
   res.json({
     message: "Request successful!",
     data,
