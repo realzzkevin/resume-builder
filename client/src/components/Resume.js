@@ -5,20 +5,22 @@ import { useReactToPrint } from "react-to-print";
 const Resume = ({ result }) => {
   const componentRef = useRef();
 
-  const replaceWithBr = (string) => {
-    return string.replace(/\n/g, "<br />");
-  };
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: `${result.fullName} Resume`,
     onAfterPrint: () => alert("Print Successful"),
   });
+  
+  const replaceWithBr = (string) => {
+    return string.replace(/\n/g, "<br />");
+  };
 
   if (JSON.stringify(result) === "{}") {
     return <ErrorPage />;
   }
   return (
     <>
+    {console.log(result)}
       <button onClick={handlePrint}>Print Page</button>
       <main className="container" ref={componentRef}>
         <header className="header">

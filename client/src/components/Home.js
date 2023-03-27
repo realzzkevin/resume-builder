@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
 
 const Home = ({ setResult }) => {
   const [fullName, setFullName] = useState("");
@@ -11,6 +11,7 @@ const Home = ({ setResult }) => {
   const [headshot, setHeadshot] = useState(null);
   const [loading, setLoading] = useState(false);
   const [companyInfo, setCompanyInfo] = useState([{ name: "", position: "" }]);
+  const navigate = useNavigate();
 
   const handleAddCompany = () => {
     setCompanyInfo([...companyInfo, { name: "", position: "" }]);
@@ -43,9 +44,8 @@ const Home = ({ setResult }) => {
       .post("http://localhost:3100/resume/create", formData, {})
       .then((res) => {
         if (res.data.message) {
-          // console.log(res.data.data);
-          setResult(res.data.date);
-          Navigate("/resume");
+          setResult(res.data.data);
+          navigate("/resume");
         }
       })
       .catch((err) => console.error(err));
